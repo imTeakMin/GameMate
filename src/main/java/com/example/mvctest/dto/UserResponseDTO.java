@@ -12,9 +12,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserResponseDto {
+public class UserResponseDTO {
 
-    private Long usersId;
     private String loginId;
     private Long point;
     private String usersName;

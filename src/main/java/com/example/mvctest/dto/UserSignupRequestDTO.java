@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSignupRequestDto {
+public class UserSignupRequestDTO {
 
     @NotBlank(message = "로그인 ID는 필수입니다")
     @Size(min = 4, max = 20, message = "로그인 ID는 4~20자 사이여야 합니다")
