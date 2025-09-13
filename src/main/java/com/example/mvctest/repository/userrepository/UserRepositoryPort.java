@@ -1,10 +1,14 @@
 package com.example.mvctest.repository.userrepository;
 
-import java.util.List;
+import com.example.mvctest.domain.User;
 
-public interface UserRepository {
+import java.util.List;
+import java.util.Optional;
+
+public interface UserRepositoryPort {
 
     void save(User user);
     User findById(Long id);
     List<User> findAll();
+    Optional<User> findByLoginId(String loginId);
 }
