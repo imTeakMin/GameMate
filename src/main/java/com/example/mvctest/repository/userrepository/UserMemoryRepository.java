@@ -2,6 +2,7 @@ package com.example.mvctest.repository.userrepository;
 
 import com.example.mvctest.domain.User;
 import lombok.Getter;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Repository
+@Component
 public class UserMemoryRepository implements UserRepository{
 
     private static Map<Long, User> store = new ConcurrentHashMap<>();
