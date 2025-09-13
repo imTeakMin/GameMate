@@ -2,7 +2,6 @@ package com.example.mvctest.repository.userrepository;
 
 import com.example.mvctest.domain.User;
 import lombok.Getter;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -11,21 +10,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-<<<<<<< HEAD
-@Component
-public class UserMemoryRepository implements UserRepository{
-=======
 @Repository
-public class UserMemoryRepository implements UserRepositoryPort{
->>>>>>> feature/login_register_sangbeom
+public class UserMemoryRepositoryPort implements UserRepositoryPort{
 
     private static Map<Long, User> store = new ConcurrentHashMap<>();
     private static long sequence = 0L;
 
     @Getter
-    private static final UserMemoryRepository instance = new UserMemoryRepository();
+    private static final UserMemoryRepositoryPort instance = new UserMemoryRepositoryPort();
 
-    private UserMemoryRepository(){} // 이거 왜 하는거지?
+    private UserMemoryRepositoryPort(){} // 이거 왜 하는거지?
 
     @Override
     public void save(User user) {
