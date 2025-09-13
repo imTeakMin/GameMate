@@ -1,5 +1,6 @@
 package com.example.mvctest.repository.userrepository;
 
+import com.example.mvctest.domain.User;
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
