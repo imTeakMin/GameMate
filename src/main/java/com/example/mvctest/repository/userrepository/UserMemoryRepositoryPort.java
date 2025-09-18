@@ -16,6 +16,8 @@ public class UserMemoryRepositoryPort implements UserRepositoryPort{
     private static Map<Long, User> store = new ConcurrentHashMap<>();
     private static long sequence = 0L;
 
+    
+
     @Override
     public void save(User user) {
         user.setId(++sequence);
