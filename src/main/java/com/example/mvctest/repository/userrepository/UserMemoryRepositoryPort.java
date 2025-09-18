@@ -16,11 +16,6 @@ public class UserMemoryRepositoryPort implements UserRepositoryPort{
     private static Map<Long, User> store = new ConcurrentHashMap<>();
     private static long sequence = 0L;
 
-    @Getter
-    private static final UserMemoryRepositoryPort instance = new UserMemoryRepositoryPort();
-
-    private UserMemoryRepositoryPort(){} // 이거 왜 하는거지?
-
     @Override
     public void save(User user) {
         user.setId(++sequence);
