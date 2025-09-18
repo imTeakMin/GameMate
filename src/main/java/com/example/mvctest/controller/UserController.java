@@ -30,4 +30,10 @@ public class UserController {
         UserResponseDTO responseDto = userService.login(requestDto);
         return ResponseEntity.ok(responseDto);
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout() {
+        // Spring Security's logout handler will intercept this call
+        return ResponseEntity.ok("Logged out successfully");
+    }
 }
