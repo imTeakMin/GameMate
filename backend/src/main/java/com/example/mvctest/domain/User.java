@@ -1,14 +1,16 @@
 package com.example.mvctest.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -33,19 +35,31 @@ public class User {
   @Column(name = "point", nullable = false)
   private Long point;
 
-  @Size(max = 255)
+  @Size(max = 10)
   @NotNull
-  @Column(name = "users_name", nullable = false)
+  @Column(name = "users_name", nullable = false, length = 10)
   private String usersName;
 
   @Size(max = 255)
   @Column(name = "users_description")
   private String usersDescription;
 
-  @Column(name = "users_birthday")
+  @NotNull
+  @Column(name = "users_birthday", nullable = false)
   private LocalDate usersBirthday;
 
-  @OneToMany(mappedBy = "user")
-  private List<Gamemate> gameMates=new ArrayList<Gamemate>();
+  @Size(max = 10)
+  @NotNull
+  @Column(name = "gender", nullable = false, length = 10)
+  private String gender;
+
+  @Size(max = 500)
+  @Column(name = "profile_image_url", length = 500)
+  private String profileImageUrl;
+
+  @NotNull
+  @ColumnDefault("0")
+  @Column(name = "login_fail_count", nullable = false)
+  private Integer loginFailCount;
 
 }
