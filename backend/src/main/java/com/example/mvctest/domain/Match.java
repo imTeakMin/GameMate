@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "orders")
-public class Order {
+@Table(name = "matches")
+public class Match {
   @Id
   @Column(name = "orders_id", nullable = false)
   private Long id;
@@ -25,16 +25,11 @@ public class Order {
   private User orderUsers;
 
   @NotNull
-  @Column(name = "orders_price", nullable = false)
-  private Long ordersPrice;
-
-  @Size(max = 255)
-  @NotNull
-  @Column(name = "order_status", nullable = false)
-  private String orderStatus;
-
-  @NotNull
   @Column(name = "orders_game_id", nullable = false)
   private Long ordersGameId;
+
+  @Size(max = 255)
+  @Column(name = "order_status")
+  private String orderStatus;
 
 }

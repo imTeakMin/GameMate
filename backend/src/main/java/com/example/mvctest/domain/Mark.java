@@ -8,10 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "gamemates")
-public class Gamemate {
+@Table(name = "marks")
+public class Mark {
   @Id
-  @Column(name = "gamemates_id", nullable = false)
+  @Column(name = "marks_id", nullable = false)
   private Long id;
 
   @NotNull
@@ -20,12 +20,7 @@ public class Gamemate {
   private User users;
 
   @NotNull
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "games_id", nullable = false)
-  private Game games;
-
-  @NotNull
-  @Column(name = "price", nullable = false)
-  private Long price;
+  @Column(name = "marked_users_id", nullable = false)
+  private Long markedUsersId;
 
 }
