@@ -14,10 +14,10 @@ import jakarta.validation.constraints.NotBlank;
 public class UserLoginRequestDTO {
 
     @NotBlank(message = "로그인 ID는 필수입니다")
-    @Size(max = 255, message = "로그인 ID는 255자 이하여야 합니다")
+    @Size(min = 4, max = 255, message = "로그인 ID는 255자 이하여야 합니다")
     private String loginId;
 
     @NotBlank(message = "비밀번호는 필수입니다")
-    @Size(max = 255, message = "비밀번호는 255자 이하여야 합니다")
+    @Size(min = 6, max = 255, message = "비밀번호는 255자 이하여야 합니다")
     private String loginPwd;
 }

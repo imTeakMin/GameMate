@@ -47,6 +47,12 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public User getUserByLoginId(String loginId) {
+        return userRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new IllegalArgumentException("등록된 사용자가 없습니다."));
+    }
+
+    @Transactional(readOnly = true)
     public User login(UserLoginRequestDTO requestDto) {
         // 사용자가 존재하는지 확인
         User user = userRepository.findByLoginId(requestDto.getLoginId())

@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.validation.FieldError;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.security.authentication.BadCredentialsException; // Import this
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -16,6 +17,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(BadCredentialsException.class) // New handler
+    public ResponseEntity<String> handleBadCredentialsException(BadCredentialsException ex) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED) // 401 Unauthorized is appropriate for bad credentials
                 .body(ex.getMessage());
     }
 
