@@ -1,10 +1,10 @@
-package com.example.mvctest.controller;
+package com.example.gamescord.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/posts")
-public class PostController {
+@RequestMapping("/api/orders")
+public class OrderController {
     // 미완성
 }

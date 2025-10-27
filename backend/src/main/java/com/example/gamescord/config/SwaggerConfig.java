@@ -1,4 +1,4 @@
-package com.example.mvctest.config;
+package com.example.gamescord.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -15,9 +15,9 @@ public class SwaggerConfig {
     public OpenAPI openAPI() {
         // API 정보 설정
         Info info = new Info()
-                .title("MVCTest API Documentation")
+                .title("gamescord API Documentation")
                 .version("1.0.0")
-                .description("API documentation for the MVCTest project.");
+                .description("API documentation for the gamescord project.");
 
         // OpenAPI 객체를 생성하여 반환
         return new OpenAPI()

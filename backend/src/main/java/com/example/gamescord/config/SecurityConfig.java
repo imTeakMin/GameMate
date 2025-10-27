@@ -1,4 +1,4 @@
-package com.example.mvctest.config;
+package com.example.gamescord.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

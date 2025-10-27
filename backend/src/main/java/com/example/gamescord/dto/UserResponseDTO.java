@@ -1,10 +1,10 @@
-package com.example.mvctest.dto;
+package com.example.gamescord.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.time.LocalDate;
 
 @Getter
@@ -14,9 +14,12 @@ import java.time.LocalDate;
 @Builder
 public class UserResponseDTO {
 
+    private Long id;
     private String loginId;
     private Long point;
     private String usersName;
     private String usersDescription;
     private LocalDate usersBirthday;
+    private String gender;
+    private String profileImageUrl;
 }

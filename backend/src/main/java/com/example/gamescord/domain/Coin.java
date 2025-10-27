@@ -1,11 +1,11 @@
-package com.example.mvctest.domain;
+package com.example.gamescord.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
@@ -37,8 +37,9 @@ public class Coin {
   private String paymentMethod;
 
   @NotNull
-  @ColumnDefault("CURRENT_TIMESTAMP")
   @Column(name = "created_at", nullable = false)
+  // @ColumnDefault("CURRENT_TIMESTAMP")
+  @CreationTimestamp    // docker 연동 시 오류 해결 (조웅)
   private Instant createdAt;
 
 }

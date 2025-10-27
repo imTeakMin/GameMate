@@ -1,28 +1,26 @@
-package com.example.mvctest.domain;
+package com.example.gamescord.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "files")
-public class File {
+@Table(name = "marks")
+public class Mark {
   @Id
-  @Column(name = "files_id", nullable = false)
+  @Column(name = "marks_id", nullable = false)
   private Long id;
-
-  @Size(max = 255)
-  @NotNull
-  @Column(name = "files_url", nullable = false)
-  private String filesUrl;
 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "users_id", nullable = false)
   private User users;
+
+  @NotNull
+  @Column(name = "marked_users_id", nullable = false)
+  private Long markedUsersId;
 
 }

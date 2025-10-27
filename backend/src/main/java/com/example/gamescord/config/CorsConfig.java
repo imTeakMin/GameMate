@@ -1,4 +1,4 @@
-package com.example.mvctest.config;
+package com.example.gamescord.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

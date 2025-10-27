@@ -1,7 +1,9 @@
-package com.example.mvctest.domain;
+package com.example.gamescord.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -18,12 +20,13 @@ import java.time.LocalDate;
 @Table(name = "users")
 public class User {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "users_id", nullable = false)
   private Long id;
 
   @Size(max = 255)
   @NotNull
-  @Column(name = "login_id", nullable = false)
+  @Column(name = "login_id", nullable = false, unique = true)
   private String loginId;
 
   @Size(max = 255)

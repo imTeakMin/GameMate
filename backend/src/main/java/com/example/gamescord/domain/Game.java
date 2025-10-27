@@ -1,4 +1,4 @@
-package com.example.mvctest.domain;
+package com.example.gamescord.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
