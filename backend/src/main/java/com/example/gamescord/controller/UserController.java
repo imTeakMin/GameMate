@@ -4,7 +4,7 @@ import com.example.gamescord.domain.User;
 import com.example.gamescord.dto.UserLoginRequestDTO;
 import com.example.gamescord.dto.UserResponseDTO;
 import com.example.gamescord.dto.UserSignupRequestDTO;
-import com.example.gamescord.service.UserService;
+import com.example.gamescord.service.user.UserService;
  
  
 import jakarta.validation.Valid;
@@ -24,7 +24,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.SecurityContextRepository;
-import com.example.gamescord.service.CustomUserDetails;
+import com.example.gamescord.service.user.CustomUserDetails;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController

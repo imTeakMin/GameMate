@@ -1,4 +1,4 @@
-package com.example.gamescord.service;
+package com.example.gamescord.service.user;
 
 import com.example.gamescord.domain.User;
 import com.example.gamescord.dto.UserLoginRequestDTO;
