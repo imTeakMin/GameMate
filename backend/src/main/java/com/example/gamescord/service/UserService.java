@@ -3,6 +3,7 @@ package com.example.gamescord.service;
 import com.example.gamescord.domain.User;
 import com.example.gamescord.dto.UserLoginRequestDTO;
 import com.example.gamescord.dto.UserSignupRequestDTO;
+import com.example.gamescord.dto.UserProfileUpdateRequestDTO;
 import com.example.gamescord.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,5 +58,36 @@ public class UserService {
         }
 
         return user;
+    }
+
+    @Transactional
+    public User updateUserProfile(Long userId, UserProfileUpdateRequestDTO requestDto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        // Update fields if they are provided in the DTO
+        if (requestDto.getUsersName() != null) {
+            user.setUsersName(requestDto.getUsersName());
+        }
+        if (requestDto.getUsersDescription() != null) {
+            user.setUsersDescription(requestDto.getUsersDescription());
+        }
+        if (requestDto.getUsersBirthday() != null) {
+            user.setUsersBirthday(requestDto.getUsersBirthday());
+        }
+        if (requestDto.getGender() != null) {
+            user.setGender(requestDto.getGender());
+        }
+        if (requestDto.getProfileImageUrl() != null) {
+            user.setProfileImageUrl(requestDto.getProfileImageUrl());
+        }
+
+        return userRepository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserProfile(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
     }
 }
