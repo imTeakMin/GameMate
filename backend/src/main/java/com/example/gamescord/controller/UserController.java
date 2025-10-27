@@ -1,9 +1,9 @@
 package com.example.gamescord.controller;
 
 import com.example.gamescord.domain.User;
-import com.example.gamescord.dto.UserLoginRequestDTO;
-import com.example.gamescord.dto.UserResponseDTO;
-import com.example.gamescord.dto.UserSignupRequestDTO;
+import com.example.gamescord.dto.user.UserLoginRequestDTO;
+import com.example.gamescord.dto.user.UserResponseDTO;
+import com.example.gamescord.dto.user.UserSignupRequestDTO;
 import com.example.gamescord.service.user.UserService;
  
  
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.gamescord.dto.UserProfileUpdateRequestDTO;
+import com.example.gamescord.dto.user.UserProfileUpdateRequestDTO;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,8 +26,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.SecurityContextRepository;
 import com.example.gamescord.service.user.CustomUserDetails;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.authentication.BadCredentialsException; // Add this
+import org.springframework.security.authentication.BadCredentialsException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
@@ -70,21 +69,18 @@ public class UserController {
 
         Authentication authentication;
         try {
-            // 3. AuthenticationManager를 통해 인증 시도 (사용자 존재 확인 후이므로 BadCredentialsException은 비밀번호 불일치)
+            // 3. AuthenticationManager 를 통해 인증 시도 (사용자 존재 확인 후이므로 BadCredentialsException 은 비밀번호 불일치)
             authentication = authenticationManager.authenticate(authToken);
         } catch (BadCredentialsException e) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        // 4. SecurityContextHolder에 인증 객체 설정
+        // 4. SecurityContextHolder 에 인증 객체 설정
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // 5. SecurityContext를 HttpSession에 저장 (세션 기반 인증의 핵심)
+        // 5. SecurityContext 를 HttpSession 에 저장
         SecurityContext context = SecurityContextHolder.getContext();
         securityContextRepository.saveContext(context, request, null);
-
-        // Get the User object from the authenticated principal
-        // User user = userDetails.getUser(); // User object is already fetched above
 
         UserResponseDTO responseDto = UserResponseDTO.builder()
                 .id(user.getId())

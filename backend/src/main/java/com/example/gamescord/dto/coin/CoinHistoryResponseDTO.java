@@ -1,4 +1,4 @@
-package com.example.gamescord.dto;
+package com.example.gamescord.dto.coin;
 
 import com.example.gamescord.domain.Coin;
 import lombok.Builder;

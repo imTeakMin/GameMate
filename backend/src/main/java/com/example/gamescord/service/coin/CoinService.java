@@ -2,8 +2,8 @@ package com.example.gamescord.service.coin;
 
 import com.example.gamescord.domain.Coin;
 import com.example.gamescord.domain.User;
-import com.example.gamescord.dto.CoinChargeRequestDTO;
-import com.example.gamescord.dto.CoinHistoryResponseDTO;
+import com.example.gamescord.dto.coin.CoinChargeRequestDTO;
+import com.example.gamescord.dto.coin.CoinHistoryResponseDTO;
 import com.example.gamescord.repository.CoinRepository;
 import com.example.gamescord.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +53,7 @@ public class CoinService {
         newCoin.setCoinAmount(coinAmount);
         newCoin.setPaymentAmount(COIN_PRICE_MAP.get(coinAmount));
         newCoin.setPaymentMethod("SIMULATED_PAYMENT");
-        newCoin.setCreatedAt(Instant.now()); // Manually set creation timestamp
+        newCoin.setCreatedAt(Instant.now());
         coinRepository.save(newCoin);
     }
 

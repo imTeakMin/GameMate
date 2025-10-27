@@ -1,7 +1,7 @@
 package com.example.gamescord.controller;
 
-import com.example.gamescord.dto.CoinChargeRequestDTO;
-import com.example.gamescord.dto.CoinHistoryResponseDTO;
+import com.example.gamescord.dto.coin.CoinChargeRequestDTO;
+import com.example.gamescord.dto.coin.CoinHistoryResponseDTO;
 import com.example.gamescord.service.coin.CoinService;
 import com.example.gamescord.service.user.CustomUserDetails;
 import jakarta.validation.Valid;

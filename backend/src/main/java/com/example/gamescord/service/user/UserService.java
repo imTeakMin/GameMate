@@ -1,9 +1,9 @@
 package com.example.gamescord.service.user;
 
 import com.example.gamescord.domain.User;
-import com.example.gamescord.dto.UserLoginRequestDTO;
-import com.example.gamescord.dto.UserSignupRequestDTO;
-import com.example.gamescord.dto.UserProfileUpdateRequestDTO;
+import com.example.gamescord.dto.user.UserLoginRequestDTO;
+import com.example.gamescord.dto.user.UserSignupRequestDTO;
+import com.example.gamescord.dto.user.UserProfileUpdateRequestDTO;
 import com.example.gamescord.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,23 +33,12 @@ public class UserService {
         newUser.setUsersName(requestDto.getUsersName());
         newUser.setUsersBirthday(requestDto.getUsersBirthday());
         newUser.setGender(requestDto.getGender());
-        
-        // 자기소개는 DTO에 있는 경우에만 설정
-        if (requestDto.getUsersDescription() != null) {
-            newUser.setUsersDescription(requestDto.getUsersDescription());
-        }
-        
+        newUser.setUsersDescription(requestDto.getUsersDescription());
         // 초기 포인트 및 로그인 실패 횟수 설정
         newUser.setPoint(0L);
         newUser.setLoginFailCount(0);
 
         return userRepository.save(newUser);
-    }
-
-    @Transactional(readOnly = true)
-    public User getUserByLoginId(String loginId) {
-        return userRepository.findByLoginId(loginId)
-                .orElseThrow(() -> new IllegalArgumentException("등록된 사용자가 없습니다."));
     }
 
     @Transactional(readOnly = true)
@@ -95,5 +84,11 @@ public class UserService {
     public User getUserProfile(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserByLoginId(String loginId) {
+        return userRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new IllegalArgumentException("등록된 사용자가 없습니다."));
     }
 }

@@ -1,4 +1,4 @@
-package com.example.gamescord.dto;
+package com.example.gamescord.dto.coin;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

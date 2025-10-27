@@ -1,4 +1,4 @@
-package com.example.gamescord.dto;
+package com.example.gamescord.dto.user;
 
 import jakarta.validation.constraints.Size;
 import lombok.Getter;

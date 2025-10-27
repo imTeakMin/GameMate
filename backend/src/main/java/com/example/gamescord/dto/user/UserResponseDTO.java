@@ -1,4 +1,4 @@
-package com.example.gamescord.dto;
+package com.example.gamescord.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
