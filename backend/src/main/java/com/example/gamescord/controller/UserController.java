@@ -4,6 +4,7 @@ import com.example.gamescord.dto.user.UserLoginRequestDTO;
 import com.example.gamescord.dto.user.UserResponseDTO;
 import com.example.gamescord.dto.user.UserSignupRequestDTO;
 import com.example.gamescord.dto.user.UserProfileUpdateRequestDTO;
+import com.example.gamescord.security.CustomUserDetails;
 import com.example.gamescord.service.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -47,7 +48,7 @@ public class UserController {
 
     @PatchMapping("/profile")
     public ResponseEntity<UserResponseDTO> updateUserProfile(@Valid @RequestBody UserProfileUpdateRequestDTO requestDto) {
-        Long userId = ((com.example.gamescord.service.user.CustomUserDetails)
+        Long userId = ((CustomUserDetails)
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
 
         return ResponseEntity.ok(
@@ -57,7 +58,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public ResponseEntity<UserResponseDTO> getUserProfile() {
-        Long userId = ((com.example.gamescord.service.user.CustomUserDetails)
+        Long userId = ((CustomUserDetails)
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
 
         return ResponseEntity.ok(

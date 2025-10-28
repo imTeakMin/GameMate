@@ -2,6 +2,7 @@ package com.example.gamescord.service.user;
 
 import com.example.gamescord.domain.User;
 import com.example.gamescord.repository.UserRepository;
+import com.example.gamescord.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
- * Spring Security의 UserDetailsService 인터페이스를 구현한 커스텀 서비스 클래스입니다.
+ * Spring Security 의 UserDetailsService 인터페이스를 구현한 커스텀 서비스 클래스입니다.
  * 사용자 인증 시, 사용자 정보를 데이터베이스에서 로드하는 역할을 합니다.
  */
 @Service

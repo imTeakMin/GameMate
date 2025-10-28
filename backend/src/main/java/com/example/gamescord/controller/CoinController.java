@@ -3,7 +3,7 @@ package com.example.gamescord.controller;
 import com.example.gamescord.dto.coin.CoinChargeRequestDTO;
 import com.example.gamescord.dto.coin.CoinHistoryResponseDTO;
 import com.example.gamescord.service.coin.CoinService;
-import com.example.gamescord.service.user.CustomUserDetails;
+import com.example.gamescord.security.CustomUserDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

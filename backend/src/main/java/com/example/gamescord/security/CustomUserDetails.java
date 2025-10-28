@@ -1,4 +1,4 @@
-package com.example.gamescord.service.user;
+package com.example.gamescord.security;
 
 import com.example.gamescord.domain.User;
 import lombok.Getter;
