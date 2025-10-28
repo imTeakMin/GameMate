@@ -1,66 +1,106 @@
-# 회원 관리 클래스 다이어그램
+## 회원관리 class diagram
 
 ```mermaid
 classDiagram
     direction LR
 
+    class UserLoginRequestDTO {
+        <<DTO>>
+        -String loginId
+        -String loginPwd
+    }
+    class UserSignupRequestDTO {
+        <<DTO>>
+        -String loginId
+        -String loginPwd
+        -String usersName
+        -String usersDescription
+        -LocalDate usersBirthday
+        -String gender
+    }
+    class UserProfileUpdateRequestDTO {
+        <<DTO>>
+        -String usersName
+        -String usersDescription
+        -LocalDate usersBirthday
+        -String gender
+        -String profileImageUrl
+    }
+    class UserResponseDTO {
+        <<DTO>>
+        -Long id
+        -String loginId
+        -Long point
+        -String usersName
+        -String usersDescription
+        -LocalDate usersBirthday
+        -String gender
+        -String profileImageUrl
+    }
+
     class UserController {
         <<Controller>>
-        +signUp(UserSignupRequestDTO)
-        +login(UserLoginRequestDTO)
-        +logout()
-        +updateUserProfile(UserProfileUpdateRequestDTO)
-        +getUserProfile()
+        -UserService userService
+        +signUp(UserSignupRequestDTO) : ResponseEntity
+        +login(UserLoginRequestDTO) : ResponseEntity
+        +logout() : ResponseEntity
+        +updateUserProfile(UserProfileUpdateRequestDTO) : ResponseEntity
+        +getUserProfile() : ResponseEntity
     }
-
     class UserService {
         <<Service>>
-        +signup(UserSignupRequestDTO)
-        +login(UserLoginRequestDTO)
-        +updateUserProfile(Long, UserProfileUpdateRequestDTO)
-        +getUserProfile(Long)
+        -UserRepository userRepository
+        -PasswordEncoder passwordEncoder
+        -AuthenticationManager authenticationManager
+        -SecurityContextRepository securityContextRepository
+        +signup(UserSignupRequestDTO) : User
+        +login(UserLoginRequestDTO) : UserResponseDTO
+        +updateUserProfile(Long, UserProfileUpdateRequestDTO) : User
+        +getUserProfile(Long) : User
     }
-
     class CustomUserDetailsService {
         <<Service>>
+        -UserRepository userRepository
         +loadUserByUsername(String) : UserDetails
     }
-
     class CustomUserDetails {
         <<UserDetails>>
         -User user
-        +getAuthorities()
-        +getPassword()
-        +getUsername()
+        +getId() : Long
+        +getAuthorities() : Collection
+        +getPassword() : String
+        +getUsername() : String
+        +isAccountNonExpired() : boolean
+        +isAccountNonLocked() : boolean
+        +isCredentialsNonExpired() : boolean
+        +isEnabled() : boolean
     }
-
     class SecurityConfig {
         <<Configuration>>
-        +filterChain(HttpSecurity)
-        +passwordEncoder()
-        +authenticationManager(AuthConfiguration)
+        +filterChain(HttpSecurity) : SecurityFilterChain
+        +passwordEncoder() : PasswordEncoder
+        +authenticationManager(AuthenticationConfiguration) : AuthenticationManager
+        +securityContextRepository() : SecurityContextRepository
     }
-
     class User {
         <<Entity>>
         -Long id
         -String loginId
         -String loginPwd
+        -Long point
         -String usersName
+        -String usersDescription
+        -LocalDate usersBirthday
+        -String gender
+        -String profileImageUrl
+        -Integer loginFailCount
         +toResponseDTO() : UserResponseDTO
     }
-
     class UserRepository {
         <<Repository>>
         +findByLoginId(String) : Optional~User~
     }
 
-    class UserLoginRequestDTO {<<DTO>>}
-    class UserSignupRequestDTO {<<DTO>>}
-    class UserProfileUpdateRequestDTO {<<DTO>>}
-    class UserResponseDTO {<<DTO>>}
-
-    %% Relationships
     UserController ..> UserService : uses
     UserController ..> CustomUserDetails : uses
     UserController ..> UserLoginRequestDTO : uses
@@ -74,12 +114,13 @@ classDiagram
     
     CustomUserDetailsService ..> UserRepository : uses
     CustomUserDetailsService ..> CustomUserDetails : creates
-    CustomUserDetailsService ..|> "UserDetailsService"
+    CustomUserDetailsService ..|> UserDetailsService
 
-    CustomUserDetails ..|> "UserDetails"
+    CustomUserDetails ..|> UserDetails
     CustomUserDetails "1" *-- "1" User : wraps
     
-    UserRepository ..|> "JpaRepository"
+    UserRepository ..|> JpaRepository
     
     User ..> UserResponseDTO : creates
+
 ```
