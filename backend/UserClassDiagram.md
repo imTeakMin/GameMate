@@ -74,12 +74,12 @@ classDiagram
     
     CustomUserDetailsService ..> UserRepository : uses
     CustomUserDetailsService ..> CustomUserDetails : creates
-    CustomUserDetailsService ..|> "UserDetailsService" : implements
+    CustomUserDetailsService ..|> "UserDetailsService"
 
-    CustomUserDetails ..|> "UserDetails" : implements
+    CustomUserDetails ..|> "UserDetails"
     CustomUserDetails "1" *-- "1" User : wraps
     
-    UserRepository ..|> "JpaRepository" : extends
+    UserRepository ..|> "JpaRepository"
     
     User ..> UserResponseDTO : creates
 ```
