@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
 
@@ -15,7 +15,7 @@ import java.time.Instant;
 @Table(name = "coin")
 public class Coin {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY) // DB 명세서 참고하여 코드 추가함.
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "coin_id", nullable = false)
   private Long id;
 
@@ -38,9 +38,8 @@ public class Coin {
   private String paymentMethod;
 
   @NotNull
+  @ColumnDefault("CURRENT_TIMESTAMP")
   @Column(name = "created_at", nullable = false)
-  // @ColumnDefault("CURRENT_TIMESTAMP")
-  @CreationTimestamp    // docker 연동 시 오류 해결 (조웅)
   private Instant createdAt;
 
 }
