@@ -1,5 +1,6 @@
 package com.example.gamescord.domain;
 
+import com.example.gamescord.dto.user.UserResponseDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -65,4 +66,16 @@ public class User {
   @Column(name = "login_fail_count", nullable = false)
   private Integer loginFailCount;
 
+  public UserResponseDTO toResponseDTO() {
+    return UserResponseDTO.builder()
+            .id(this.getId())
+            .loginId(this.getLoginId())
+            .point(this.getPoint())
+            .usersName(this.getUsersName())
+            .usersDescription(this.getUsersDescription())
+            .usersBirthday(this.getUsersBirthday())
+            .gender(this.getGender())
+            .profileImageUrl(this.getProfileImageUrl())
+            .build();
+  }
 }
