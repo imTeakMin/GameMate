@@ -1,9 +1,6 @@
 package com.example.gamescord.repository.mark;
 
 import com.example.gamescord.domain.Mark;
-import com.example.gamescord.domain.QMark;
-import com.example.gamescord.repository.match.SDJpaMatchRepository;
-import com.querydsl.core.QueryFactory;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +27,7 @@ public class MarkRepository {
         markRepository.save(mark);
     }
 
-    public List<Mark> findByUsersId(Long usersId){
+    public List<Mark> findMarkByUsersId(Long usersId){
         return queryFactory.select(mark)
                 .from(mark)
                 .where(mark.users.id.eq(usersId))
