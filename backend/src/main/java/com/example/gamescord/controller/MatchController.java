@@ -2,7 +2,7 @@ package com.example.gamescord.controller;
 
 import com.example.gamescord.dto.match.MatchRequestDTO;
 import com.example.gamescord.dto.match.MatchResponseDTO;
-import com.example.gamescord.dto.match.MatchStatusUpdateRequestDTO;
+import com.example.gamescord.dto.match.MatchStatusUpdateByKeyDTO;
 import com.example.gamescord.security.CustomUserDetails;
 import com.example.gamescord.service.match.MatchService;
 import jakarta.validation.Valid;
@@ -27,12 +27,11 @@ public class MatchController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
-    @PatchMapping("/{matchId}/status")
+    @PatchMapping("/status")
     public ResponseEntity<MatchResponseDTO> updateMatchStatus(
-            @PathVariable Long matchId,
-            @Valid @RequestBody MatchStatusUpdateRequestDTO requestDto,
+            @Valid @RequestBody MatchStatusUpdateByKeyDTO requestDto,
             @AuthenticationPrincipal CustomUserDetails userDetails) {
-        MatchResponseDTO responseDto = matchService.updateMatchStatus(matchId, requestDto, userDetails.getId());
+        MatchResponseDTO responseDto = matchService.updateMatchStatus(requestDto, userDetails.getId());
         return ResponseEntity.ok(responseDto);
     }
 }

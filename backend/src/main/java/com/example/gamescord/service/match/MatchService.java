@@ -5,15 +5,13 @@ import com.example.gamescord.domain.Match;
 import com.example.gamescord.domain.User;
 import com.example.gamescord.dto.match.MatchRequestDTO;
 import com.example.gamescord.dto.match.MatchResponseDTO;
-import com.example.gamescord.dto.match.MatchStatusUpdateRequestDTO;
+import com.example.gamescord.dto.match.MatchStatusUpdateByKeyDTO;
 import com.example.gamescord.repository.UserRepository;
 import com.example.gamescord.repository.gamemate.GameMateRepository;
 import com.example.gamescord.repository.match.MatchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +26,7 @@ public class MatchService {
         User requester = userRepository.findById(requesterId)
                 .orElseThrow(() -> new IllegalArgumentException("요청자 정보를 찾을 수 없습니다."));
 
-        Gamemate gamemate = gameMateRepository.findGamemateByUsersId(requestDto.getOrderedUserId(), requestDto.getGameId());
+        Gamemate gamemate = gameMateRepository.findGamemateByUsersId(requestDto.getOrderedUsersId(), requestDto.getOrdersGameId());
         if (gamemate == null) {
             throw new IllegalArgumentException("해당 유저는 이 게임의 게임메이트로 등록되어 있지 않습니다.");
         }
@@ -51,28 +49,36 @@ public class MatchService {
         newMatch.setUsers(requester);
         newMatch.setOrderUsersId(requester.getId());
         newMatch.setOrderedUsersId(gamematePlayer.getId());
-        newMatch.setOrdersGameId(requestDto.getGameId());
+        newMatch.setOrdersGameId(requestDto.getOrdersGameId());
         newMatch.setOrderStatus("PENDING");
 
         matchRepository.saveMatch(newMatch);
 
-        return MatchResponseDTO.fromEntity(newMatch);
+        return MatchResponseDTO.of(newMatch);
     }
 
     @Transactional
-    public MatchResponseDTO updateMatchStatus(Long matchId, MatchStatusUpdateRequestDTO requestDto, Long currentUserId) {
-        Match match = Optional.ofNullable(matchRepository.findById(matchId))
-                .orElseThrow(() -> new IllegalArgumentException("매칭 정보를 찾을 수 없습니다."));
-
-        if (!match.getOrderedUsersId().equals(currentUserId)) {
+    public MatchResponseDTO updateMatchStatus(MatchStatusUpdateByKeyDTO requestDto, Long currentUserId) {
+        if (!currentUserId.equals(requestDto.getOrderedUsersId())) {
             throw new IllegalArgumentException("매칭 상태를 변경할 권한이 없습니다.");
+        }
+
+        Match match = matchRepository.findMatch(
+                requestDto.getOrderUsersId(),
+                requestDto.getOrderUsersId(),
+                requestDto.getOrderedUsersId(),
+                requestDto.getOrdersGameId()
+        );
+
+        if (match == null) {
+            throw new IllegalArgumentException("해당 조건의 매칭 정보를 찾을 수 없습니다.");
         }
 
         if (!"PENDING".equals(match.getOrderStatus())) {
             throw new IllegalStateException("대기 중인 매칭만 상태를 변경할 수 있습니다.");
         }
 
-        String newStatus = requestDto.getStatus().toUpperCase();
+        String newStatus = requestDto.getOrderStatus().toUpperCase();
 
         if ("ACCEPTED".equals(newStatus)) {
             match.setOrderStatus("ACCEPTED");
@@ -95,6 +101,6 @@ public class MatchService {
         }
 
         matchRepository.saveMatch(match);
-        return MatchResponseDTO.fromEntity(match);
+        return MatchResponseDTO.of(match);
     }
 }

@@ -8,19 +8,21 @@ import lombok.Getter;
 @Builder
 public class MatchResponseDTO {
 
-    private Long matchId;
-    private Long requesterId;
-    private Long gamematePlayerId;
-    private Long gameId;
-    private String status;
+    private Long ordersId;
+    private Long usersId;
+    private Long orderedUsersId;
+    private Long orderUsersId;
+    private Long ordersGameId;
+    private String orderStatus;
 
-    public static MatchResponseDTO fromEntity(Match match) {
+    public static MatchResponseDTO of(Match match) {
         return MatchResponseDTO.builder()
-                .matchId(match.getId())
-                .requesterId(match.getOrderUsersId())
-                .gamematePlayerId(match.getOrderedUsersId())
-                .gameId(match.getOrdersGameId())
-                .status(match.getOrderStatus())
+                .ordersId(match.getId())
+                .usersId(match.getUsers().getId())
+                .orderedUsersId(match.getOrderedUsersId())
+                .orderUsersId(match.getOrderUsersId())
+                .ordersGameId(match.getOrdersGameId())
+                .orderStatus(match.getOrderStatus())
                 .build();
     }
 }
