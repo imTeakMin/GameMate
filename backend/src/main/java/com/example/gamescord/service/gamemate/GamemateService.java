@@ -52,7 +52,7 @@ public class GamemateService {
 
     @Transactional(readOnly = true)
     public List<GamemateResponseDTO> searchGamematesByUserName(String userName) {
-        List<Gamemate> gamemates = gameMateRepository.findGamematesByUserName(userName);
+        List<Gamemate> gamemates = gameMateRepository.findGamematesByUsersName(userName);
         return gamemates.stream()
                 .map(GamemateResponseDTO::fromEntity)
                 .collect(Collectors.toList());

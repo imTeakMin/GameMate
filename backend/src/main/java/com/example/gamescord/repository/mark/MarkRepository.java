@@ -34,6 +34,13 @@ public class MarkRepository {
                 .fetch();
     }
 
+    public Mark findByUsersIdAndMarkedUsersId(Long usersId, Long markedUsersId) {
+        return queryFactory.select(mark)
+            .from(mark)
+            .where(mark.users.id.eq(usersId), mark.markedUsersId.eq(markedUsersId))
+            .fetchOne();
+    }
+
     public void deleteMark(Mark mark) {
         markRepository.delete(mark);
     }
