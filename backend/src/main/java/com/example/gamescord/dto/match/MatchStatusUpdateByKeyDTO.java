@@ -5,7 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MatchRequestDTO {
+public class MatchStatusUpdateByKeyDTO {
+    private Long orderUsersId;
     private Long orderedUsersId;
     private Long ordersGameId;
+    private String orderStatus;
 }

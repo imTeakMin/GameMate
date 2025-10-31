@@ -1,4 +1,4 @@
-package com.example.gamescord.controller;
+/*package com.example.gamescord.controller;
 
 import com.example.gamescord.dto.review.ReviewRequestDTO;
 import com.example.gamescord.dto.review.ReviewResponseDTO;
@@ -25,3 +25,4 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 }
+*/

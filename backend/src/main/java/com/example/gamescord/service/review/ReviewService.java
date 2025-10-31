@@ -1,4 +1,4 @@
-package com.example.gamescord.service.review;
+/*package com.example.gamescord.service.review;
 
 import com.example.gamescord.domain.Gamemate;
 import com.example.gamescord.domain.Review;
@@ -34,3 +34,4 @@ public class ReviewService {
         return ReviewResponseDTO.fromEntity(newReview);
     }
 }
+*/
