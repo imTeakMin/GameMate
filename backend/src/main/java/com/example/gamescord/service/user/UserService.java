@@ -203,9 +203,14 @@ public class UserService {
     // 비밀번호 재설정 요청
     @Transactional
     public void requestPasswordReset(String email) {
-        // 이메일 존재 여부만 확인, 실제 사용자 정보는 다음 단계에서.
-        userRepository.findByEmail(email)
+        // 이메일 존재 여부 확인
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("등록되지 않은 이메일입니다."));
+
+        // 소셜 로그인 유저(비밀번호가 없는 유저)인 경우 차단
+        if (user.getLoginPwd() == null) {
+            throw new IllegalArgumentException("이 계정은 구글 소셜 로그인 계정입니다. 구글 로그인을 이용해 주세요.");
+        }
 
         String code = verificationCodeService.generateAndStoreCode(email);
         String subject = "Game's cord 비밀번호 재설정 인증 코드";
