@@ -49,13 +49,11 @@ public class User {
   @Column(name = "users_description")
   private String usersDescription;
 
-  @NotNull
-  @Column(name = "users_birthday", nullable = false)
+  @Column(name = "users_birthday")
   private LocalDate usersBirthday;
 
   @Size(max = 10)
-  @NotNull
-  @Column(name = "gender", nullable = false, length = 10)
+  @Column(name = "gender", length = 10)
   private String gender;
 
   @Size(max = 500)

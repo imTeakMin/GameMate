@@ -39,8 +39,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         
         if (userOptional.isPresent()) {
             user = userOptional.get();
-            // 프로필 이미지 등 최신 정보 업데이트 (선택 사항)
-            if (picture != null) user.setProfileImageUrl(picture);
             userRepository.saveUser(user);
         } else {
             // 신규 가입
@@ -48,12 +46,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             user.setLoginId(email); // 소셜 유저는 이메일을 loginId로 사용 (충돌 방지)
             user.setEmail(email);
             user.setUsersName(name != null ? name : "Social User");
-            user.setProfileImageUrl(picture);
             user.setPoint(0L);
             user.setLoginFailCount(0);
             user.setEnabled(true);
-            user.setUsersBirthday(LocalDate.of(1900, 1, 1)); // 기본값
-            user.setGender("None");
             
             userRepository.saveUser(user);
         }
