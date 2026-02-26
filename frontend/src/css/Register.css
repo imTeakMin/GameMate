@@ -1,116 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
 /* 회원가입 컴포넌트 전체 컨테이너 */
 .register-container {
   display: flex;
-  align-items: center; /* 세로 중앙 */
-  flex-direction: column; /* 세로로 쌓기 */
+  flex-direction: column; /* 요소를 세로로 배치 */
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 /* 회원가입 문구 */
 .page-title {
-  width: 263px;
-  height: 56px;
-  font-size: 24px;
-  font-weight: bold;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 700;
   text-align: center;
+  color: #333;
+}
+
+.register-form {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 450px;
 }
 
 /*입력 버튼 위 제목*/
 .form-title {
-  font-size: 13px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 8px;
+  margin-left: 2px;
 }
 
-/*중복 확인 버튼*/
-.dup-check {
-  margin-right: -3px;
-  width: 95px;
-  height: 28px;
-  border: none; /* 외곽선 제거 */
-  border-radius: 4px; /* 둥근 모서리 */
-  background-color: #4372ff;
-  color: #ffffff;
-  font-size: 12px;
-  font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif; /* 버튼 안 글자만 적용 */
-  cursor: pointer;
-}
-
-/*input과 버튼 같이 디자인*/
-.input-with-button {
-  position: relative;
-  display: inline-block;
-  width: 300px; /* input+버튼 영역 넓이 */
-}
-
-/*placeholder 디자인*/
-.input-placeholder::placeholder {
-  color: black;
-}
-
-/* 회원가입 양식 input */
+/* 회원가입 양식 input wrapper */
 .input-with-icon {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
-  padding: 8px;
-  width: 290px;
-  height: 20px; /* input 높이 조금 늘림 */
-  margin-bottom: 15px;
-  border-radius: 5px;
-  font-size: 12px;
+  border: 1.5px solid #dee2e6;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+  background-color: #fff;
+}
+
+.input-with-icon:focus-within {
+  border-color: #4372ff;
+  box-shadow: 0 0 0 3px rgba(67, 114, 255, 0.1);
 }
 
 /*아이콘 조정*/
 .input-with-icon .icon {
-  margin-right: 10px;
-  margin-left: 4px;
-  font-size: 1.2em;
-  color: #666;
-  width: 20px;
-  height: 20px;
+  margin-right: 12px;
+  font-size: 1.2rem;
+  color: #adb5bd;
 }
 
 .input-with-icon input {
   border: none;
   outline: none;
   width: 100%;
-  font-size: 1em;
+  font-size: 15px;
+  color: #212529;
+  background: transparent;
 }
 
 .input-with-icon input::placeholder {
-  opacity: 0.8; /* 더 투명하게 하고 싶다면 */
+  color: #ced4da;
 }
 
+.input-with-icon input:disabled {
+  background-color: transparent;
+  color: #adb5bd;
+}
 
+/*중복 확인 버튼*/
+.dup-check {
+  margin-left: 10px;
+  white-space: nowrap;
+  padding: 6px 12px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f1f3f5;
+  color: #495057;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dup-check:hover:not(:disabled) {
+  background-color: #e9ecef;
+}
+
+.dup-check:disabled {
+  background-color: #f8f9fa;
+  color: #ced4da;
+  cursor: not-allowed;
+}
+
+/* 생년월일 선택 영역 */
+.birth-select-wrapper {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.birth-select-wrapper select {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #495057;
+  cursor: pointer;
+}
+
+/* 하단 버튼 영역 */
+.form-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+/* 공통 버튼 스타일 */
+.register-btn,
+.cancel-btn {
+  flex: 1;
+  height: 52px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    opacity 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.register-btn:active,
+.cancel-btn:active {
+  transform: scale(0.98);
+}
 
 /* 회원가입 버튼 */
 .register-btn {
-  margin-left: 31px;
-  width: 110px;
-  height: 48px;
-  border: none; /* 외곽선 제거 */
-  border-radius: 5px; /* 둥근 모서리 */
   background-color: #4372ff;
   color: #ffffff;
-  font-weight: bold;
-  font-size: 16px;
-  font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif; /* 버튼 안 글자만 적용 */
-  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(67, 114, 255, 0.2);
 }
 
-/* 회원가입 버튼 */
+.register-btn:hover {
+  opacity: 0.9;
+}
+
+/* 취소 버튼 */
 .cancel-btn {
-  margin-left: 31px;
-  width: 110px;
-  height: 48px;
-  border: none; /* 외곽선 제거 */
-  border-radius: 5px; /* 둥근 모서리 */
-  background-color: #4372ff;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 16px;
-  font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;/* 버튼 안 글자만 적용 */
-  cursor: pointer;
+  background-color: #f1f3f5;
+  color: #495057;
+}
+
+.cancel-btn:hover {
+  background-color: #e9ecef;
+}
+
+/* 반응형 처리 */
+@media (max-width: 480px) {
+  .register-form {
+    padding: 25px 20px;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .register-container {
+    background-color: #fff;
+    padding: 20px 0;
+  }
 }
