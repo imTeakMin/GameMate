@@ -3,6 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import "../login.css";
 import api from "../api/axios";
 
+import googleIcon from "../assets/google.png";
+import naverIcon from "../assets/naver.png";
+import kakaoIcon from "../assets/kakao.png";
+
 const Login = () => {
   const [input, setInput] = useState({ id: "", password: "" });
   const [errorMsg, setErrorMsg] = useState("");
@@ -80,6 +84,21 @@ const Login = () => {
         </div>
 
         <button type="submit">Log in</button>
+
+        <div className="divider">또는</div>
+
+        <div className="social">
+          <div className="social-btn">
+
+            <img src={googleIcon} />
+          </div>
+          <div className="social-btn">
+            <img src={naverIcon} />
+          </div>
+          <div className="social-btn">
+            <img src={kakaoIcon} />
+          </div>
+        </div>
       </form>
     </div>
   );

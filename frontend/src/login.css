@@ -71,3 +71,70 @@ body {
   text-decoration: underline;
   color: #333;
 }
+hr{
+  margin-top: 50px;
+  width: 70%;
+}
+.social {
+  display: flex;
+  justify-content: center;
+}
+
+/* 구분선 스타일링: "OR" 텍스트 추가 버전 */
+.divider {
+  display: flex;
+  align-items: center;
+  color: #888;
+  font-size: 14px;
+  margin: 40px auto 30px;
+  width: 80%;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+.divider::before {
+  margin-right: 15px;
+}
+
+.divider::after {
+  margin-left: 15px;
+}
+
+/* 소셜 로그인 버튼 컨테이너 */
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-btn {
+  margin: 5px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #f0f0f0;
+  background-color: #fff;
+}
+
+.social-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.social-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
