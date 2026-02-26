@@ -28,8 +28,7 @@ public class User {
   private String loginId;
 
   @Size(max = 255)
-  @NotNull
-  @Column(name = "login_pwd", nullable = false)
+  @Column(name = "login_pwd")
   private String loginPwd;
 
   @Size(max = 255)

@@ -4,22 +4,38 @@ import com.example.gamescord.domain.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
 /**
- * Spring Security 의 UserDetails 인터페이스를 구현한 커스텀 클래스입니다.
- * 인증된 사용자의 상세 정보(권한, 비밀번호, 아이디 등)를 캡슐화합니다.
+ * Spring Security 의 UserDetails 및 OAuth2User 인터페이스를 구현한 커스텀 클래스입니다.
+ * 인증된 사용자의 상세 정보(권한, 비밀번호, 아이디, 소셜 정보 등)를 캡슐화합니다.
  */
 @Getter
-public class CustomUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails, OAuth2User {
 
     // 애플리케이션의 도메인 모델인 User 객체를 포함합니다.
     private final User user;
+    private Map<String, Object> attributes;
 
     public CustomUserDetails(User user) {
         this.user = user;
+    }
+
+    public CustomUserDetails(User user, Map<String, Object> attributes) {
+        this.user = user;
+        this.attributes = attributes;
+    }
+
+    /**
+     * OAuth2User 인터페이스의 메소드로, 소셜 서비스로부터 받은 속성들을 반환합니다.
+     */
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
     }
 
     /**
@@ -35,8 +51,6 @@ public class CustomUserDetails implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 현재는 별도의 권한을 설정하지 않으므로 빈 리스트를 반환합니다.
-        // 추후 역할(Role) 기반 권한 관리가 필요할 경우, 여기에 로직을 추가합니다.
         return Collections.emptyList();
     }
 
@@ -58,39 +72,31 @@ public class CustomUserDetails implements UserDetails {
         return user.getLoginId();
     }
 
-    /**
-     * 계정이 만료되지 않았는지 여부를 반환합니다.
-     * @return true (만료되지 않음)
-     */
     @Override
     public boolean isAccountNonExpired() {
-        return true; // 계정 만료 여부 (true: 만료되지 않음)
+        return true;
     }
 
-    /**
-     * 계정이 잠기지 않았는지 여부를 반환합니다.
-     * @return true (잠기지 않음)
-     */
     @Override
     public boolean isAccountNonLocked() {
-        return true; // 계정 잠김 여부 (true: 잠기지 않음)
+        return true;
     }
 
-    /**
-     * 자격 증명(비밀번호)이 만료되지 않았는지 여부를 반환합니다.
-     * @return true (만료되지 않음)
-     */
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // 비밀번호 만료 여부 (true: 만료되지 않음)
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return user.isEnabled();
     }
 
     /**
-     * 계정이 활성화되었는지 여부를 반환합니다.
-     * @return true (활성화됨)
+     * OAuth2User 인터페이스의 메소드로, 유저의 이름을 반환합니다 (식별값으로 사용).
      */
     @Override
-    public boolean isEnabled() {
-        return true; // 계정 활성화 여부 (true: 활성화됨)
+    public String getName() {
+        return String.valueOf(user.getId());
     }
 }
