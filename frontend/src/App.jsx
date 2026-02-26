@@ -6,7 +6,6 @@ import Template from "./template/Template";
 import JoinGameMatch from "./Match/JoinGameMatch.jsx";
 import CoinRecharge from "./Coin/CoinRecharge";
 import CoinChargeHistory from "./Coin/CoinChargeHistory";
-import Payment from "./Coin/Payment";
 import Register from "./Register/Register";
 import Search from "./page/Search";
 import MyPage from "./page/MyPage/MyPage";
@@ -14,6 +13,7 @@ import Login from "./login/Login";
 import Requestdetail from "./requestdetail.jsx";
 import MarkPage from "./page/MyPage/MarkPage";
 import FindPassword from "./login/Findpassword.jsx";
+import TossSuccess from "./Coin/TossSuccess.jsx";
 
 const App = () => {
   return (
@@ -24,7 +24,6 @@ const App = () => {
           <Route path="/match" element={<JoinGameMatch />} /> {/*임시 라우트*/}
           <Route path="/coin" element={<CoinRecharge />} />
           <Route path="/coinHistory" element={<CoinChargeHistory />} />
-          <Route path="/pay" element={<Payment />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/find-password" element={<FindPassword />} />
@@ -34,6 +33,7 @@ const App = () => {
           <Route path="/matchdetail" element={<MatchDetail />} />
           <Route path="/requestdetail" element={<Requestdetail />} />
           <Route path="/mark" element={<MarkPage />} />
+          <Route path="/toss/success" element={<TossSuccess />} />
         </Routes>
       </Template>
     </BrowserRouter>

@@ -37,3 +37,13 @@ npm install react-icons
 ```
 
 [React Icons 공식 문서](https://react-icons.github.io/react-icons/)
+
+###### 토스 SDK
+
+```bash
+npm install @tosspayments/tosspayments-sdk
+```
+
+index.html의 head 태그 부분에 하단내용이 추가 되어야함
+
+<script src="https://js.tosspayments.com/v1/payment"></script>

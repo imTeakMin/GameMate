@@ -1,10 +1,13 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../api/axios";
 import "../css/CoinRecharge.css";
 import coinImage from "../assets/coin.jpg";
 import HeaderTabs from "../Coin/HeaderTabs";
-import { useNavigate } from "react-router-dom";
 import Sidebar from "../page/MyPage/Sidebar";
 import styles from ".././page/MyPage/MyPage.module.css";
-//코인 가격 배열 points: 코인 갯수 price : 가격, id: 인덱스
+
+// 코인 상품 데이터
 const coinProducts = [
   { id: 1, points: "500", price: "4,680" },
   { id: 2, points: "1,000", price: "9,360" },
@@ -18,52 +21,86 @@ const coinProducts = [
   { id: 10, points: "500,000", price: "4,320,000" },
 ];
 
-//얼마를 충전할지 렌더링되는 코인 충전 목록 함수
 const CoinItem = ({ id, points, price }) => {
-  const navigate = useNavigate();
-  const handleRecharge = () => {
+  const [isProcessing, setIsProcessing] = useState(false);
+  const clientKey = "test_ck_vZnjEJeQVxz0nXJa6GjP8PmOoBN0";
+
+  const handleRecharge = async () => {
+    // 1. 사용자 확인 팝업
     const message = `${points} 코인을 ₩${price} 에 충전하시겠습니까?`;
+    if (!window.confirm(message)) return;
 
-    const isConfirmed = window.confirm(message);
+    if (isProcessing) return;
+    setIsProcessing(true);
 
-    console.log(`선택된 상품: ${points} points, ₩${price}`);
+    try {
+      // 2. 로그인 토큰 체크
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        alert("로그인 정보가 없습니다. 다시 로그인해 주세요.");
+        window.location.href = "/login";
+        return;
+      }
 
-    if (isConfirmed) {
-      // 만약 충전 상품 정보를 `/pay` 페이지로 함께 넘기고 싶다면 아래처럼 state를 사용합니다.
-      navigate("/pay", {
-        state: {
-          id: id,
-          points: points,
-          price: price,
-        },
+      // 3. 백엔드 주문 생성 API 호출
+      const response = await api.post(`/toss/create-order`, { packageId: id });
+      const { orderId, orderName, amount } = response.data;
+
+      // 4. 토스 SDK 로드 확인 (index.html에 스크립트가 있어야 함)
+      if (typeof window.TossPayments !== "function") {
+        alert("결제 모듈을 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+        setIsProcessing(false);
+        return;
+      }
+
+      // 5. 토스 결제창 실행 (기본 수단: 카드)
+      const tossPayments = window.TossPayments(clientKey);
+
+      await tossPayments.requestPayment("카드", {
+        amount: amount,
+        orderId: orderId,
+        orderName: orderName,
+        successUrl: `${window.location.origin}/toss/success`,
+        failUrl: `${window.location.origin}/toss/fail`,
       });
-    } else {
-      console.log("충전이 취소되었습니다.");
+    } catch (error) {
+      console.error("결제 준비 중 오류:", error);
+      const errorMsg =
+        error.response?.data?.message || "결제 진행 중 오류가 발생했습니다.";
+      alert(errorMsg);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
   return (
-    <button className="coin-item" onClick={handleRecharge}>
+    <button
+      className={`coin-item ${isProcessing ? "processing" : ""}`}
+      onClick={handleRecharge}
+      disabled={isProcessing}
+    >
       <div className="point-info">
         <img src={coinImage} alt="포인트 코인" className="coin-icon" />
         <p className="points-amount">{points}</p>
       </div>
       <hr />
-      <p className="price-amount">￦ {price}</p>
+      <p className="price-amount">
+        {isProcessing ? "처리 중..." : `￦ ${price}`}
+      </p>
     </button>
   );
 };
 
 const CoinRecharge = () => {
   return (
-    <div className={styles.wrapper} >
-      <Sidebar/>
-      <div style={{flex : 1, marginRight:"80px", minHeight:"500px"}}>
+    <div className={styles.wrapper}>
+      <Sidebar />
+      <div style={{ flex: 1, marginRight: "80px", minHeight: "500px" }}>
         <HeaderTabs />
         <div className="coin-list-container">
-          {coinProducts.map((product, index) => (
+          {coinProducts.map((product) => (
             <CoinItem
-              key={index}
+              key={product.id}
               id={product.id}
               points={product.points}
               price={product.price}
